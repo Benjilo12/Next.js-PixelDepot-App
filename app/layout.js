@@ -1,5 +1,7 @@
 import "@/app/_styles/globals.css";
+
 import { Josefin_Sans } from "next/font/google";
+import Navbar from "./_components/Navbar/Navbar";
 
 //configure fonts
 const josefin = Josefin_Sans({
@@ -20,7 +22,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${josefin.className} min-h-screen`}>
-        <main>{children}</main>
+        <div>
+          <Navbar />
+          <main>{children}</main>
+        </div>
       </body>
     </html>
   );

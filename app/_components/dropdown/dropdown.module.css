@@ -1,0 +1,38 @@
+.submenu {
+  width: 10rem;
+  position: absolute;
+  top: 6.9%;
+  left: 88%;
+  text-align: start;
+  z-index: 1000;
+}
+
+.submenuclicked {
+  display: none;
+}
+
+.link {
+  background: rgb(255, 255, 255);
+  cursor: pointer;
+  display: block;
+
+  width: 100%;
+  height: 100%;
+  color: rgb(0, 0, 0);
+  padding: 8px 37px;
+  font-size: 1.4rem;
+  border-radius: 3px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.294);
+  z-index: 1;
+}
+
+.link:hover {
+  background: aqua;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .submenu {
+    display: none;
+  }
+}

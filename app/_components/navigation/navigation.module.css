@@ -9,19 +9,32 @@
 .link {
   display: flex;
   align-items: center;
-  margin-right: 2rem;
-}
-
-.link {
-  display: flex;
-  align-items: center;
+  margin-right: 1.8rem;
   font-size: 1.1rem;
   font-weight: 400;
   padding: 6px 16px;
   border-radius: 5px;
-  gap: 1rem;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: white;
 }
+
 .link:hover {
   background-color: aqua;
   color: black;
+}
+
+.link.active {
+  background-color: aqua;
+  color: black;
+}
+
+@media screen and (max-width: 768px) {
+  .navitem {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    height: 100%;
+  }
 }
