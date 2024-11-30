@@ -19,7 +19,7 @@ function page({}) {
           </p>
         </div>
       </section>
-      <section>
+      <section className="mb-[120px]">
         <div className="flex justify-center items-center px-5 bg-gray-100 mt-[110px]">
           <div className="flex flex-wrap max-w-[1450px] bg-white rounded-lg overflow-hidden shadow-md">
             {/* Left Side */}

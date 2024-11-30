@@ -45,6 +45,7 @@
 @media screen and (max-width: 768px) {
   .navbar-logo {
     position: absolute;
+    margin-left: 0%;
     left: 3%;
   }
   .avatar {
