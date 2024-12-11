@@ -4,7 +4,7 @@ export const metadata = {
 
 function page() {
   return (
-    <div className="mt-10">
+    <div className="mt-10 h-screen">
       <h1>
         Contrary to popular belief, Lorem Ipsum is not simply random text. It
         has roots in a piece of classical Latin literature from 45 BC, making it
