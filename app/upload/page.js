@@ -1,19 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { v4 } from "uuid";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 
-const metadata = {
-  title: "Upload",
-};
+const Page = () => {
+  const [pictures, setPictures] = useState();
+  const [formData, setFormData] = useState({ category: "", file: null });
 
-function page() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
+  const categories = [
+    "nature",
+    "animals",
+    "background",
+    "people",
+    "technology",
+  ];
+
   return (
-    <div className=" h-screen">
-      <div className=" flex items-start justify-center px-4 mt-20 overflow-x-hidden">
+    <div className="h-screen">
+      {/* Header and instructions */}
+      <div className="flex items-start justify-center px-4 mt-20 overflow-x-hidden">
         <div className="text-center max-w-2xl">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800 leading-8 md:leading-10 tracking-tight md:tracking-wide">
             Share your photos and videos, and let the world love them.
@@ -25,25 +31,9 @@ function page() {
         </div>
       </div>
       <div>
-        <h1 className="text-center mt-20 text-3xl  md:text-4xl text-gray-600 font-extrabold ml-5">
+        <h1 className="text-center mt-20 text-3xl md:text-4xl text-gray-600 font-extrabold ml-5">
           Upload Image
         </h1>
-      </div>
-      <div className="flex justify-center mt-1 text-4xl ">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-16 md:size-40 ml-10 md:ml-10"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-          />
-        </svg>
       </div>
       <div>
         <form className="flex items-center justify-center ml-[140px]">
@@ -51,6 +41,7 @@ function page() {
             <input
               className="w-[100px] mb-7 border-gray-300 md:ml-[3.5rem] mr-20 ml-6 md:mr-0"
               type="file"
+              accept="image/*"
               required
             />
             <label
@@ -59,26 +50,31 @@ function page() {
             >
               Category
             </label>
-            <input
-              className="bg-transparent rounded border border-gray-300 text-gray-800 p-2 md:p-3 w-[220px] md:w-[300px] mr-[10px]md:mr-7 mb-10"
-              type="text"
-              placeholder="Enter category"
+            <select
+              className="bg-transparent rounded border border-gray-300 text-gray-800 p-2 md:p-3 w-[220px] md:w-[300px] mr-[50px] md:mr-7 mb-10"
+              name="category"
+              value={formData.category}
               required
-            />
-            <label className="text-center mr-[4rem] text-3xl font-bold ml-8 md:ml-0 mb-4  border-[#FFCDA3]">
-              {" "}
-              Description
-            </label>
-            <textarea
-              className="h-[10rem] md:w-[20rem] p-2 mb-20  border-[#FFCDA3]"
-              placeholder="Description"
-              required
-            />
+            >
+              <option value="">Select a category</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>{" "}
+            {/* Closing tag for select */}
+            <button
+              type="submit"
+              className="bg-lime-900 text-center md:p-4 rounded-2xl text-slate-100 md:text-2xl text-[1rem] p-3 transition ease-out duration-300 hover:bg-lime-700 mr-8 md:mr-0 mt-10"
+            >
+              Add Image
+            </button>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
 
-export default page;
+export default Page;

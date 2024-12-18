@@ -5,6 +5,8 @@ import styles from "./navbar.module.css";
 import Image from "next/image";
 import Navigation from "../navigation/navigation";
 import Dropdown from "../dropdown/dropdown";
+import dynamic from "next/dynamic";
+
 import { useState, useEffect, useRef } from "react";
 
 function Navbar() {
@@ -108,4 +110,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default dynamic(() => Promise.resolve(Navbar), { ssr: false });

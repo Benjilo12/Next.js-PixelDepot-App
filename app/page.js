@@ -1,9 +1,15 @@
-import Searchbar from "./_components/searchbar/Searchbar";
-import styles from "./homepage.module.css";
+import ImageDetails from "./_components/ImagesCard/ImageDetails";
 
-export default function Home() {
+import Searchbar from "./_components/searchbar/Searchbar";
+
+import styles from "./homepage.module.css";
+import { getPictures } from "./utils/action";
+
+export default async function Home() {
+  const pictures = await getPictures();
+  console.log(pictures);
   return (
-    <div className="h-screen">
+    <div className="h-auto mb-[3rem]">
       <div className={styles.container}>
         <video autoPlay loop muted className={styles.video}>
           <source src="/sea.mp4" type="video/mp4" />
@@ -16,6 +22,7 @@ export default function Home() {
           <Searchbar />
         </div>
       </div>
+      <ImageDetails pictures={pictures} />
     </div>
   );
 }
