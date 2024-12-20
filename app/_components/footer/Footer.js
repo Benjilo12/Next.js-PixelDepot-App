@@ -3,8 +3,8 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <div className="bg-black text-white-200 ">
-      <div className="container mx-auto py-14 px-6">
+    <div className="bg-black text-white-200 w-screen ">
+      <div className="container mx-auto py-14 px-6 ">
         <div className="grid md:grid-cols-12  grid-cols-1 gap-8">
           <div className="lg:col-span-4 col-span-12">
             <Link href="/">
