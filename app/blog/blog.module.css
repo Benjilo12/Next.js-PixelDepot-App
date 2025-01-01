@@ -1,0 +1,15 @@
+.container {
+  background: linear-gradient(#00000041, #000),
+    url("/camera.jpg") no-repeat center center;
+  background-size: cover;
+  padding: 100px 0px;
+  height: 370px;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+}

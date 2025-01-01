@@ -1,3 +1,4 @@
+import FilterButtons from "./_components/FilterButtons";
 import ImageDetails from "./_components/ImagesCard/ImageDetails";
 
 import Searchbar from "./_components/searchbar/Searchbar";
@@ -7,7 +8,7 @@ import { getPictures } from "./utils/actions";
 
 export default async function Page() {
   const pictures = await getPictures();
-  console.log(pictures);
+
   return (
     <div className="h-auto w-screen mb-[3rem]">
       <div className={styles.container}>
@@ -19,10 +20,10 @@ export default async function Page() {
           <h1>
             The best free stock photos, royalty-free images shared by creators.
           </h1>
-          <Searchbar />
+          {/* <Searchbar /> */}
         </div>
       </div>
-
+      {/* <FilterButtons /> */}
       <ImageDetails pictures={pictures} className="mb-9 " />
     </div>
   );

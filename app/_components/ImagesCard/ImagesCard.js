@@ -6,7 +6,7 @@ export default function ImagesCard({ pictures }) {
   const { id, imgUrl, category } = pictures;
 
   return (
-    <div className="inline-block flex-wrap px-3 md:ml-[1.3rem] ml-[3.4rem]  mt-[2rem]">
+    <div className="inline-block flex-wrap px-3 md:ml-[1.3rem] ml-[3.4rem]  mt-[1rem] ">
       <div
         key={id}
         className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer transform transition duration-300 ease-in-out hover:scale-105 w-[330px] h-[335px] flex-row"

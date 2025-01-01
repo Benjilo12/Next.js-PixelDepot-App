@@ -8,7 +8,6 @@ import { redirect } from "next/navigation";
 import { useFormState } from "react-dom";
 
 const Page = () => {
-  const { pending } = useFormState();
   const [formData, setFormData] = useState({ category: "", file: null });
 
   const categories = [
@@ -139,10 +138,9 @@ const Page = () => {
             </select>
             <button
               type="submit"
-              className="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded"
-              disabled={pending}
+              className="mt-4 bg-blue-500 text-white font-bold py-2 px-3 rounded"
             >
-              {pending ? "uploading" : "upload"}
+              upload
             </button>
           </div>
         </form>

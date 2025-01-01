@@ -3,15 +3,33 @@
 import { revalidatePath } from "next/cache";
 import { supabase } from "./supabase";
 import { toast } from "react-toastify";
+import { signIn } from "./auth";
 
 export async function getPictures() {
   const { data, error } = await supabase.from("pictures").select("*");
+
   if (error) {
-    console.error("Error fetching pictures:", error);
-    throw new Error("Pictures could not be loaded");
+    throw new Error("Pictures could not be loaded"); // You can customize this message
   }
+
   return data;
 }
+
+// export async function filterImages(category) {
+//   const images = await getPictures();
+//   return images.filter(
+//     (image) => image.category.toLowerCase() === category.toLowerCase()
+//   );
+// }
+
+export async function SignInAction() {
+  await signIn("google", { redirectTo: "/upload" });
+}
+
+// export async function SignInAction() {
+//   await signIn("google", { redirect: true, callbackUrl: "/upload" });
+// }
+
 export async function handleDelete(event, { picturesId, imgUrl }) {
   try {
     // Extract the file name from the URL
@@ -43,22 +61,28 @@ export async function handleDelete(event, { picturesId, imgUrl }) {
   } catch (error) {
     console.error("Error deleting picture:", error);
   }
-  revalidatePath("./");
+  revalidatePath("./pictures");
 }
 
+// utils/actions.js
 export async function downloadImage(imgUrl) {
   try {
-    const link = document.createElement("a");
-    link.href = imgUrl;
-
-    // Ensure the filename is valid
-    const filename = imgUrl.split("/").pop() || "downloaded_image";
-    link.download = filename;
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const response = await fetch(
+      `/api/download?filePath=${encodeURIComponent(imgUrl)}`
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = imgUrl.split("/").pop(); // Set the filename
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
   } catch (error) {
-    console.error("Error downloading the image:", error);
+    console.error("Error downloading image:", error);
   }
 }

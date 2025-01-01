@@ -1,6 +1,9 @@
+import { getPictures } from "@/app/utils/actions";
 import styles from "./searchbar.module.css";
 
-function Searchbar() {
+export default async function Searchbar() {
+  const pictures = getPictures();
+  console.log(pictures);
   return (
     <div>
       <div className={styles.searchbar}>
@@ -14,5 +17,3 @@ function Searchbar() {
     </div>
   );
 }
-
-export default Searchbar;
