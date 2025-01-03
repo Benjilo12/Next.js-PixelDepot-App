@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+
 import { supabase } from "./supabase";
 import { toast } from "react-toastify";
 import { signIn } from "./auth";
@@ -64,23 +65,30 @@ export async function handleDelete(event, { picturesId, imgUrl }) {
   revalidatePath("./pictures");
 }
 
-// utils/actions.js
 export async function downloadImage(imgUrl) {
+  if (!imgUrl) {
+    console.error("No image URL provided.");
+    return;
+  }
+
   try {
     const response = await fetch(
       `/api/download?filePath=${encodeURIComponent(imgUrl)}`
     );
+
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      throw new Error(`Failed to fetch image. Status: ${response.status}`);
     }
+
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.style.display = "none";
     a.href = url;
-    a.download = imgUrl.split("/").pop(); // Set the filename
+    a.download = imgUrl.split("/").pop() || "downloaded-image";
     document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   } catch (error) {
     console.error("Error downloading image:", error);

@@ -3,6 +3,10 @@
 import { downloadImage } from "../utils/actions";
 
 function DownloadButton({ imgUrl }) {
+  if (!imgUrl) {
+    console.error("No image URL provided to DownloadButton.");
+    return null;
+  }
   return (
     <div>
       <button onClick={() => downloadImage(imgUrl)}>
@@ -24,4 +28,3 @@ function DownloadButton({ imgUrl }) {
 }
 
 export default DownloadButton;
- 

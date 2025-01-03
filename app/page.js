@@ -1,3 +1,4 @@
+import Filter from "./_components/Filter";
 import FilterButtons from "./_components/FilterButtons";
 import ImageDetails from "./_components/ImagesCard/ImageDetails";
 
@@ -6,7 +7,10 @@ import Searchbar from "./_components/searchbar/Searchbar";
 import styles from "./homepage.module.css";
 import { getPictures } from "./utils/actions";
 
-export default async function Page() {
+export default async function Page({ searchParams: rawSearchParams }) {
+  const searchParams = await rawSearchParams;
+  const filter = searchParams?.category || "all"; // Default to "all" if no category
+
   const pictures = await getPictures();
 
   return (
@@ -24,7 +28,9 @@ export default async function Page() {
         </div>
       </div>
       {/* <FilterButtons /> */}
-      <ImageDetails pictures={pictures} className="mb-9 " />
+      <Filter filter={filter} />
+
+      <ImageDetails filter={filter} className="mb-9 " />
     </div>
   );
 }

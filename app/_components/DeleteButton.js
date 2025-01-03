@@ -4,7 +4,7 @@ import { handleDelete } from "../utils/actions";
 function DeleteButton({ picturesId, imgUrl }) {
   return (
     <button
-      onClick={(event) => handleDelete(event, { picturesId, imgUrl })}
+      onClick={() => handleDelete(event, { picturesId, imgUrl })}
       className="absolute bottom-0 right-[4rem] p-3 bg-red-500 text-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out text-xs md:text-base"
     >
       <svg

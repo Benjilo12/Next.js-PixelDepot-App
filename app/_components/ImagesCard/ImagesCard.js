@@ -2,7 +2,6 @@ import DeleteButton from "../DeleteButton";
 import DownloadButton from "../DownloadButton";
 
 export default function ImagesCard({ pictures }) {
-  // Assume fetchPictures returns a single object or an array
   const { id, imgUrl, category } = pictures;
 
   return (
@@ -19,7 +18,7 @@ export default function ImagesCard({ pictures }) {
           style={{ objectFit: "cover" }}
           className="rounded-xl w-full h-full flex-row"
         />
-        {/* <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" /> */}
+
         <div className="absolute bottom-4 right-4 p-2  bg-green-500 text-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out text-xs md:text-base">
           <DownloadButton imgUrl={imgUrl} />
           <DeleteButton picturesId={id} imgUrl={imgUrl} />

@@ -12,6 +12,7 @@ import { useState, useEffect, useRef } from "react";
 function Navbar() {
   const [dropdown, setDropdown] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false); // State for mobile menu
+
   const dropdownRef = useRef(null);
 
   useEffect(() => {
