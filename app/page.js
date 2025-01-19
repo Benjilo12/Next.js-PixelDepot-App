@@ -1,5 +1,5 @@
 import Filter from "./_components/Filter";
-import FilterButtons from "./_components/FilterButtons";
+
 import ImageDetails from "./_components/ImagesCard/ImageDetails";
 
 import Searchbar from "./_components/searchbar/Searchbar";
@@ -21,13 +21,13 @@ export default async function Page({ searchParams: rawSearchParams }) {
           Your browser does not support the video tag.
         </video>
         <div className={styles.content}>
-          <h1>
+          <h1 className="md:text-[10rem] text-[6rem] leading-[3rem]">
             The best free stock photos, royalty-free images shared by creators.
           </h1>
           {/* <Searchbar /> */}
         </div>
       </div>
-      {/* <FilterButtons /> */}
+
       <Filter filter={filter} />
 
       <ImageDetails filter={filter} className="mb-9 " />

@@ -4,11 +4,11 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 import { supabase } from "../utils/supabase";
-import { redirect } from "next/navigation";
-import { useFormState } from "react-dom";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [formData, setFormData] = useState({ category: "", file: null });
+  const router = useRouter();
 
   const categories = [
     "nature",
@@ -18,19 +18,26 @@ const Page = () => {
     "technology",
   ];
 
+  // Handle file input
   const handleFileChange = (e) => {
     setFormData({ ...formData, file: e.target.files[0] });
   };
 
+  // Generic input handler
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
+  // Handle form submission
   const handleAddPicture = async (e) => {
     e.preventDefault();
 
     if (formData.file && formData.category) {
-      // Upload the file to Supabase storage
+      // Upload file to Supabase storage
       const { data, error } = await supabase.storage
         .from("images") // Supabase storage bucket name
         .upload(`${uuidv4()}_${formData.file.name}`, formData.file);
@@ -76,12 +83,11 @@ const Page = () => {
       } else {
         toast.success("Image added successfully!");
         setFormData({ category: "", file: null }); // Reset form
+        router.push("./");
       }
     } else {
       toast.error("Please provide all required fields!");
     }
-
-    redirect("./");
   };
 
   return (
@@ -109,6 +115,7 @@ const Page = () => {
           className="flex items-center justify-center ml-[140px]"
         >
           <div className="flex flex-col mt-4">
+            {/* File input */}
             <input
               className="w-[100px] mb-7 border-gray-300 md:ml-[3.5rem] mr-20 ml-6 md:mr-0"
               type="file"
@@ -116,12 +123,10 @@ const Page = () => {
               onChange={handleFileChange}
               required
             />
-            <label
-              className="mb-[40px] text-3xl font-bold mr-20 md:mr-0 ml-5 md:ml-[3rem]"
-              htmlFor="input-id"
-            >
+            <h1 className="mb-[40px] text-3xl font-bold mr-20 md:mr-0 ml-5 md:ml-[3rem]">
               Category
-            </label>
+            </h1>
+            {/* Category select */}
             <select
               className="bg-transparent rounded border border-gray-300 text-gray-800 p-2 md:p-3 w-[220px] md:w-[300px] mr-[50px] mb-[3rem]"
               name="category"
@@ -136,11 +141,12 @@ const Page = () => {
                 </option>
               ))}
             </select>
+            {/* Submit button */}
             <button
               type="submit"
               className="mt-4 bg-blue-500 text-white font-bold py-2 px-3 rounded"
             >
-              upload
+              Upload
             </button>
           </div>
         </form>

@@ -4,13 +4,14 @@ import { revalidatePath } from "next/cache";
 
 import { supabase } from "./supabase";
 import { toast } from "react-toastify";
-import { signIn } from "./auth";
+import { auth, signIn, signOut } from "./auth";
 
 export async function getPictures() {
   const { data, error } = await supabase.from("pictures").select("*");
 
   if (error) {
-    throw new Error("Pictures could not be loaded"); // You can customize this message
+    console.error("Supabase error:", error);
+    throw new Error("Pictures could not be loaded");
   }
 
   return data;
@@ -23,16 +24,27 @@ export async function getPictures() {
 //   );
 // }
 
+// export async function SignInAction() {
+//   await signIn("google", { redirectTo: "/upload" });
+// }
+
 export async function SignInAction() {
   await signIn("google", { redirectTo: "/upload" });
 }
 
-// export async function SignInAction() {
-//   await signIn("google", { redirect: true, callbackUrl: "/upload" });
-// }
+export async function SignOutAction() {
+  await signOut("google", { redirectTo: "/" });
+}
 
 export async function handleDelete(event, { picturesId, imgUrl }) {
   try {
+    const session = await auth();
+    console.log(session);
+
+    if (!session) {
+      throw new Error("Unauthorized access: No session found.");
+    }
+
     // Extract the file name from the URL
     const fileName = imgUrl.split("/").pop();
 
@@ -72,12 +84,20 @@ export async function downloadImage(imgUrl) {
   }
 
   try {
-    const response = await fetch(
-      `/api/download?filePath=${encodeURIComponent(imgUrl)}`
-    );
+    console.log("Fetching image from:", imgUrl);
+    const response = await fetch(imgUrl); // Directly fetch the image URL
 
     if (!response.ok) {
       throw new Error(`Failed to fetch image. Status: ${response.status}`);
+    }
+
+    // Check the content type of the response
+    const contentType = response.headers.get("Content-Type");
+    console.log("Content-Type:", contentType);
+
+    // Ensure the response is of type image
+    if (!contentType || !contentType.startsWith("image/")) {
+      throw new Error("Response is not an image.");
     }
 
     const blob = await response.blob();

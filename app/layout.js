@@ -2,9 +2,9 @@ import "@/app/_styles/globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Josefin_Sans } from "next/font/google";
-import Navbar from "./_components/Navbar/Navbar";
+
 import Footer from "./_components/footer/Footer";
-import Header from "./_components/Header";
+import Flowheader from "./_components/Flowheader";
 
 //configure fonts
 const josefin = Josefin_Sans({
@@ -25,9 +25,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${josefin.className} min-h-screen`}>
-        <section>
-          <Navbar />
-          {/* <Header /> */}
+        <div>
+          <Flowheader />
           <ToastContainer
             position="top-right"
             autoClose={3000}
@@ -40,9 +39,9 @@ export default function RootLayout({ children }) {
             pauseOnHover
             theme="dark"
           />
-          <main>{children}</main>
+          {children}
           <Footer />
-        </section>
+        </div>
       </body>
     </html>
   );

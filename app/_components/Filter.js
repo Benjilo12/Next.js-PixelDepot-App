@@ -16,7 +16,7 @@ function Filter({ filter }) {
 
   const activeFilter = searchParams.get("category") ?? "all";
   return (
-    <div className="flex justify-center items-center gap-5 mt-10 mb-10">
+    <div className="flex justify-center items-center gap-5 mt-10 mb-10 flex-wrap">
       <Button
         filter="nature"
         handleFilter={handleFilter}
